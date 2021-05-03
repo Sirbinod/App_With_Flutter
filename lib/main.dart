@@ -1,65 +1,93 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audio_cache.dart';
 
 void main() {
   return runApp(
-    MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.red,
-        appBar: AppBar(
-          title: Text('Dicee'),
-          backgroundColor: Colors.red,
-        ),
-        body: Dicce(),
-      ),
-    ),
+    RainMusic(),
   );
 }
 
-class Dicce extends StatefulWidget {
-  @override
-  _DicceState createState() => _DicceState();
-}
-
-class _DicceState extends State<Dicce> {
-  int lDiceNumber = 1;
-  int rDiceNumber = 1;
-  void changeDiceFace() {
-    setState(() {
-      lDiceNumber = Random().nextInt(6) + 1;
-      rDiceNumber = Random().nextInt(6) + 1;
-    });
+class RainMusic extends StatelessWidget {
+  Expanded buildKey({Color color, int soundNumber}) {
+    return Expanded(
+      child: FlatButton(
+        color: color,
+        onPressed: () {
+          final player = AudioCache();
+          player.play('note$soundNumber.wav');
+        },
+        child: Text('ath'),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: FlatButton(
-              onPressed: () {
-                changeDiceFace();
-                print('left button click');
-              },
-              child: Image.asset('images/dice$lDiceNumber.png'),
-            ),
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: Colors.black,
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              buildKey(color: Colors.red, soundNumber: 1),
+              buildKey(color: Colors.orange, soundNumber: 2),
+              buildKey(color: Colors.yellow, soundNumber: 3),
+              buildKey(color: Colors.green, soundNumber: 4),
+              buildKey(color: Colors.teal, soundNumber: 5),
+              buildKey(color: Colors.blue, soundNumber: 6),
+              buildKey(color: Colors.purple, soundNumber: 7),
+            ],
           ),
-          Expanded(
-            child: FlatButton(
-              onPressed: () {
-                changeDiceFace();
-                print('Right buttton click');
-              },
-              child: Image.asset('images/dice$rDiceNumber.png'),
-            ),
-          )
-        ],
+        ),
       ),
     );
   }
 }
+
+// class Dicce extends StatefulWidget {
+//   @override
+//   _DicceState createState() => _DicceState();
+// }
+
+// class _DicceState extends State<Dicce> {
+//   int lDiceNumber = 1;
+//   int rDiceNumber = 1;
+//   void changeDiceFace() {
+//     setState(() {
+//       lDiceNumber = Random().nextInt(6) + 1;
+//       rDiceNumber = Random().nextInt(6) + 1;
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//       child: Row(
+//         children: <Widget>[
+//           Expanded(
+//             child: FlatButton(
+//               onPressed: () {
+//                 changeDiceFace();
+//                 print('left button click');
+//               },
+//               child: Image.asset('images/dice$lDiceNumber.png'),
+//             ),
+//           ),
+//           Expanded(
+//             child: FlatButton(
+//               onPressed: () {
+//                 changeDiceFace();
+//                 print('Right buttton click');
+//               },
+//               child: Image.asset('images/dice$rDiceNumber.png'),
+//             ),
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 // class MyApp extends StatelessWidget {
 //   @override
